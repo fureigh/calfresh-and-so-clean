@@ -1,4 +1,4 @@
-<% if @fax_result.successful? %>
+<% if @result.successful? %>
   <h1>Great! You've applied for CalFresh in San Francisco!</h1>
   <br>
   Your application has been submitted!
@@ -7,7 +7,7 @@
   <br>
   We didn't actually submit your application just yet. Here's why:
   <br><br>
-  <i><%= @fax_result.message %></i>
+  <i><%= @result.message %></i>
 <% end %>
 
 <br><br>

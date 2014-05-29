@@ -2,9 +2,12 @@ require 'sinatra'
 require 'rack/ssl'
 require './calfresh'
 require './faxer'
+require './emailer'
+require 'pry'
 
 class CalfreshWeb < Sinatra::Base
   use Rack::SSL unless settings.environment == :development
+
 
   get '/' do
     erb :index
@@ -29,7 +32,8 @@ class CalfreshWeb < Sinatra::Base
       images_to_send = @application.png_file_set
       images_to_send << @verification_docs.file_array
       puts images_to_send
-      @fax_result = Faxer.send_fax(ENV['FAX_DESTINATION_NUMBER'], images_to_send)
+      #@result = Faxer.send_fax(ENV['FAX_DESTINATION_NUMBER'], images_to_send)
+      @result = Emailer.send_calfresh_application(images_to_send)
       erb :after_fax
     else
       puts "No PNGs! WTF!?!"
